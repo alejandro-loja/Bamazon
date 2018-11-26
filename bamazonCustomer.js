@@ -31,7 +31,7 @@ function displayAllItems() {
     console.log('______________\n')
     var itemsInProducts = results.length;
     console.log('Number of Items of Sale: ' + itemsInProducts); // test number of items in table
-
+    console.log('\n______________\n');
     for (var i = 0; i < results.length; i++) {
       var result = results[i];
       var itemNumber = result.item_id;
@@ -53,7 +53,7 @@ function displayAllItems() {
 }
 
 function askHowManyToBuy(numberOfItems) {
-  console.log(numberOfItems);
+  // console.log(numberOfItems);
   inquirer
     .prompt({
       name: "askForID",
@@ -74,9 +74,8 @@ function askHowManyToBuy(numberOfItems) {
       }
     })
     .then(function (answers) {
-      console.log('***********')
       var chosenItem = answers.askForID;
-      console.log('You have chosen: \n');
+      console.log('\nYou have chosen: \n');
       readThings(chosenItem);
     });
 }
