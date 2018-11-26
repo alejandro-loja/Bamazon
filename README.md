@@ -13,11 +13,11 @@ Welcome to Bamazon. An application using MySQL and node.js to create the experie
 $ npm install 
 ```
 
-2. Start **LIRI** by typing:
+2. Start **Bamazon** by typing:
 ```bash
 $ node bamazonCustomer.js
 ```
-3. Bamazon will show you the list of product that are for sale. (Example below).
+3. **Bamazon** will show you the list of product that are for sale. (Example below).
 ```bash
 Hello Welcome to BAMAZON
 Check out our selection:
@@ -30,7 +30,7 @@ Department: Toys | Qty: 80
 Item Number: 1
 ______________
 ```
-4. Enter the unique ID number to chose the desired item wanted. (Example Below).
+4. Enter the **unique ID** number to chose the desired item wanted. (Example Below).
 
 ```bash
  ? Enter the ID number of the product you would like to buy.   1
