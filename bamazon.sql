@@ -14,6 +14,9 @@ CREATE TABLE products (
 );
 
 SELECT * FROM bamazon_db.products;
+SELECT * FROM bamazon_db.products WHERE item_id = 4;
+
+
 -- departments include: Toys, Mens, Video Games, Womens, Home, Pets 
 INSERT INTO products (product_name, department_name, price_usd, stock_quantity)
 VALUES ("Slinky", "Toys", 6.99, 100);
@@ -22,7 +25,7 @@ INSERT INTO products (product_name, department_name, price_usd, stock_quantity)
 VALUES ("Nike Air Force", "Mens", 10.99, 20);
 
 INSERT INTO products (product_name, department_name, price_usd, stock_quantity)
-VALUES ("PlayStation 4", "Video Games", 299.00, 40);
+VALUES ("PlayStation 4", "Video Games", 299.99, 40);
 
 INSERT INTO products (product_name, department_name, price_usd, stock_quantity)
 VALUES ("Michael Kors Purse", "Womens", 159.99, 30);
