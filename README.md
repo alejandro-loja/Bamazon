@@ -32,7 +32,7 @@ ______________
 ```
 4. Enter the unique ID number to chose the desired item wanted. (Example Below).
 
-```node
+```bash
  ? Enter the ID number of the product you would like to buy.   1
 
 You have chosen: 
@@ -44,7 +44,7 @@ ______________
 
 ```
 5. Enter the quanity you would like. Only a valid number will allow you to continue. Any number larger that the stated available quantity will give you a warning message.
-```node
+```bash
 
 ? How many would you like to buy?  |  Qty Available: 80  :   10
 
@@ -52,7 +52,7 @@ Updating...
 
 ```
 6. On the last screen a total will appear based on your chosen item and quantity.
-```node
+```bash
 ______________
 
 1 record updated
