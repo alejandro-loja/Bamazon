@@ -62,7 +62,7 @@ function askHowManyToBuy(numberOfItems) {
       validate: function (isNumber) {
         var isNumberInt = parseInt(isNumber)
         if (Number.isInteger(isNumberInt)) {
-          if (isNumberInt <= numberOfItems && isNumberInt >= 1){
+          if (isNumberInt <= numberOfItems && isNumberInt >= 1) {
             return true;
           } else {
             console.log('\n** Choose a valid Item ID **');
@@ -109,14 +109,17 @@ function inquireHowMany(itemNumber, quantity) {
     .prompt({
       name: "askHowMany",
       type: "input",
-      message: ("How many would you like to buy?  |  Qty Available: " + quantity),
+      message: ("How many would you like to buy?  |  Qty Available: " + quantity + '  :  '),
       validate: function (isNumber) {
         var isNumberInt = parseInt(isNumber)
         if (Number.isInteger(isNumberInt)) {
-          if (isNumberInt <= quantity && isNumberInt >= 1){
+          if (isNumberInt < 1){
+            console.log('\n** Choose a valid Number **');
+          }
+          else if (isNumberInt <= quantity) {
             return true;
           } else {
-            console.log('\n** Choose a valid Item ID **');
+            console.log('\n** Insufficient Quantity! **');
 
           }
         }
@@ -127,30 +130,56 @@ function inquireHowMany(itemNumber, quantity) {
     })
     .then(function (answers) {
       var chosenQuantity = parseInt(answers.askHowMany);
-      console.log('Updating...');
+      console.log('\nUpdating...');
+      console.log('______________\n')
       updateQty(itemNumber, quantity, chosenQuantity);
     });
 }
 
 function updateQty(itemNumber, quantity, chosenQuantity) {
   // console.log(itemNumber, quantity,chosenQuantity); //test
+  var newQty = quantity - chosenQuantity
   var query = connection.query(
     "UPDATE products SET ? WHERE ?",
     [
       {
-        quantity: (quantity - chosenQuantity)
+        stock_quantity: newQty
       },
       {
         item_id: itemNumber
       }
     ],
     function (err, res) {
-      // console.log(res.affectedRows + " products updated!\n");
+      // console.log(res)
+      console.log(res.affectedRows + " record updated\n");
       // Call deleteProduct AFTER the UPDATE completes
-      // deleteProduct();
+      totalCost(itemNumber,chosenQuantity);
     }
   );
+}
 
-  // logs the actual query being run
-  // console.log(query.sql);
+function totalCost(chosenItemID, chosenQuantity) {
+  connection.query("SELECT * FROM products WHERE item_id = ?", chosenItemID, function (err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    // console.log(res);
+    var result = res[0];
+    var productName = result.product_name;
+    var whichDepartment = result.department_name;
+    var price = result.price_usd;
+    var priceInUSD = ('$' + price);
+    var itemNumber = result.item_id;
+    var quantity = result.stock_quantity;
+
+    console.log('Product: ' + productName + ' | ' + 'Price: ' + priceInUSD);
+    console.log('Item Number: ' + itemNumber);
+    console.log('\nYour Total: ');
+    console.log('Qty: ' + chosenQuantity + ' X ' + priceInUSD);
+    var youPay = chosenQuantity * price;
+    var youPayDollars = '$' + youPay.toFixed(2);
+    console.log('Grand Total: ' + youPayDollars); 
+    console.log('\n______________\n')
+
+    connection.end();
+  });
 }
